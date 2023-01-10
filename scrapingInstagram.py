@@ -38,8 +38,20 @@ def scrapevideos(output_Folder='./outputFolder', days=1):
         loadInstaloader.context, INSTAGRAM_USERNAME)
     following = profile.get_followees()
 
-    for follower in following:  # print all followers
-        print(follower)
+    for followee in following:  # print all followers
+        print(followee)
+        followeeLooter = ProfileLooter(
+            followee.username, videos_only=True, template="{id}-{username}-{width}-{height}")
+        if not followeeLooter.logged_in():
+            followeeLooter.login(INSTAGRAM_USERNAME, INSTAGRAM_PASSWORD)
+        print("Getting videos from " + followee.username)
+        today = datetime.date.today()
+        timeframe = (today, today -
+                     dateutil.relativedelta.relativedelta(days=days))
+        numDowloaded = followeeLooter.download(
+            output_Folder, media_count=30, timeframe=timeframe)
+        print("Downloaded " + str(numDowloaded) + " videos successfully")
+        print("")
 
 
 scrapevideos()
