@@ -27,9 +27,7 @@ def getHtmlDocument(url_to_scrape):
 html_document = getHtmlDocument(url_to_scrape)
 soup = BeautifulSoup(html_document, 'html.parser')
 
-
 print(soup.title)
-
 
 def scrapevideos(output_Folder='./outputFolder', days=1):
     loadInstaloader = instaloader.Instaloader()
@@ -54,4 +52,4 @@ def scrapevideos(output_Folder='./outputFolder', days=1):
         print("")
 
 
-scrapevideos()
+scrapevideos('./outputFolder',1)
