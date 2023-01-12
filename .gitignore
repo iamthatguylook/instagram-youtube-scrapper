@@ -1,2 +1,3 @@
 ./scrapperenv
 config.env
+geckodriver.log
