@@ -31,22 +31,24 @@ try:
     notNowNotificationsButton =  WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//button[contains(text(),'Not Now')]"))) 
     notNowNotificationsButton.click()
 
-    profileButton = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME,"_aaav"))) 
+    profileButton = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH,"//a[contains(text(),'scrappybot2')]"))) 
     profileButton.click()
-
-    profileButton2 = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//div[contains(text(),'Profile')]"))) 
-    profileButton2.click()
 
     followingButton = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//div[contains(text(),'following')]"))) 
     followingButton.click()
-    
+
     followingProfiles =[]
     followingProfiles = WebDriverWait(driver, 10).until(EC.presence_of_all_elements_located((By.XPATH,"//a[@class='x1i10hfl xjbqb8w x6umtig x1b1mbwd xaqea5y xav7gou x9f619 x1ypdohk xt0psk2 xe8uvvx xdj266r x11i5rnm xat24cr x1mh8g0r xexx8yu x4uap5 x18d9i69 xkhd6sd x16tdsg8 x1hl2dhg xggy1nq x1a2a7pz notranslate _a6hd']")))
+    
+    followingNumber = 7
+    iteratorFollowing = 0
     for followee in  followingProfiles:
-        doubleClickAction.keyDown(Keys.LEFT_CONTROL).click(followee)
-        #doubleClickAction.double_click(followee).perform() to perform double clicks
-        print(followee)
-        break
+        if iteratorFollowing < followingNumber: 
+            print(followee)
+            ActionChains(driver).key_down(Keys.CONTROL).click(followee).key_up(Keys.CONTROL).perform()
+            iteratorFollowing +=1
+        #doubleClickAction.keyDown(Keys.LEFT_CONTROL).click(followee) #doubleClickAction.double_click(followee).perform() to perform double clicks
+        
         
 except:
     print('Hey there is an error')
