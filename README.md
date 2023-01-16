@@ -29,6 +29,12 @@ and enter the details accordingly then either press enter using selenium or clic
 Once thats done in the code we must go through following list and open each followee in different tab
 in order to download the videos in a particular folder related to the following from each window.
 
+# One small issue
+
+The following number for now is hardcoded the way to tackle this would be take the follower number from the html -span or div whatever the html might using selenium inner html feature then we could store that as a variable but the problem with this lets say you are following 200 people you would open 200 tabs with your bot account which is poor feature.
+
+The more efficient thing would be to have list of urls from where you would scrape from or list of followers then you would open only those tabs and scrape videos from that day. ---> I will make future script for this now ill just hardcode to get the basic functionality running
+
 # Step 6 - Once all the windows are downloaded we must close the driver
 
 using driver.close()
