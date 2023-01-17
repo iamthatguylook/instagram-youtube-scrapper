@@ -18,53 +18,54 @@ INSTAGRAM_PASSWORD = os.getenv('INSTAGRAM_PASSWORD')
 driver=webdriver.Firefox()
 driver.get("https://instagram.com")
 doubleClickAction = ActionChains(driver)
-try:
-    usernameElement = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.NAME, "username")))
-    usernameElement.send_keys(INSTAGRAM_USERNAME)
-    
-    passwordElement = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.NAME, "password")))
-    passwordElement.send_keys(INSTAGRAM_PASSWORD)
-    passwordElement.send_keys(Keys.RETURN)
 
-    notNowElement =  WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//button[contains(text(),'Not Now')]"))) 
-    notNowElement.click()
-    
-    notNowNotificationsButton =  WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//button[contains(text(),'Not Now')]"))) 
-    notNowNotificationsButton.click()
+usernameElement = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.NAME, "username")))
+usernameElement.send_keys(INSTAGRAM_USERNAME)
 
-    profileButton = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH,"//a[contains(text(),'scrappybot2')]"))) 
-    profileButton.click()
+passwordElement = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.NAME, "password")))
+passwordElement.send_keys(INSTAGRAM_PASSWORD)
+passwordElement.send_keys(Keys.RETURN)
 
-    followingButton = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//div[contains(text(),'following')]"))) 
-    followingButton.click()
+notNowElement =  WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//button[contains(text(),'Not Now')]"))) 
+notNowElement.click()
 
-    followingProfiles =[]
-    followingProfiles = WebDriverWait(driver, 10).until(EC.presence_of_all_elements_located((By.XPATH,"//a[@class='x1i10hfl xjbqb8w x6umtig x1b1mbwd xaqea5y xav7gou x9f619 x1ypdohk xt0psk2 xe8uvvx xdj266r x11i5rnm xat24cr x1mh8g0r xexx8yu x4uap5 x18d9i69 xkhd6sd x16tdsg8 x1hl2dhg xggy1nq x1a2a7pz notranslate _a6hd']")))
-    
-    followingNumber = 7     # This can be change to  the amount of followers you would  like to iterate through 
-    iteratorFollowing = 0
+notNowNotificationsButton =  WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//button[contains(text(),'Not Now')]"))) 
+notNowNotificationsButton.click()
 
-    focusWindow = driver.current_window_handle
-    parentWindow = driver.window_handles[0]
+profileButton = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH,"//a[contains(text(),'scrappybot2')]"))) 
+profileButton.click()
+
+followingButton = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//div[contains(text(),'following')]"))) 
+followingButton.click()
+
+followingProfiles =[]
+followingProfiles = WebDriverWait(driver, 10).until(EC.presence_of_all_elements_located((By.XPATH,"//a[@class='x1i10hfl xjbqb8w x6umtig x1b1mbwd xaqea5y xav7gou x9f619 x1ypdohk xt0psk2 xe8uvvx xdj266r x11i5rnm xat24cr x1mh8g0r xexx8yu x4uap5 x18d9i69 xkhd6sd x16tdsg8 x1hl2dhg xggy1nq x1a2a7pz notranslate _a6hd']")))
+
+followingNumber = 7     # This can be change to  the amount of followers you would  like to iterate through 
+iteratorFollowing = 0
+
+focusWindow = driver.current_window_handle
+parentWindow = driver.window_handles[0]
 
 
-    for followee in  followingProfiles:
-        if iteratorFollowing < followingNumber: 
-            
-            print(followee)
-            ActionChains(driver).key_down(Keys.CONTROL).click(followee).key_up(Keys.CONTROL).perform()
-            
-            iteratorFollowing +=1
-        #doubleClickAction.keyDown(Keys.LEFT_CONTROL).click(followee) #doubleClickAction.double_click(followee).perform() to perform double clicks
-
-    for iterateTabs in range(followingNumber):
-        print(iterateTabs)
-        childWindow = driver.window_handles[iterateTabs]
-        driver.switch_to.window(childWindow)
-        time.sleep(5)
-
-            
-
+for followee in  followingProfiles:
+    if iteratorFollowing < followingNumber: 
         
-except:
-    print('Hey there is an error')
+        ActionChains(driver).key_down(Keys.CONTROL).click(followee).key_up(Keys.CONTROL).perform()
+        
+        iteratorFollowing +=1
+    #doubleClickAction.keyDown(Keys.LEFT_CONTROL).click(followee) #doubleClickAction.double_click(followee).perform() to perform double clicks
+
+for iterateTabs in range(followingNumber):
+    
+    childWindow = driver.window_handles[iterateTabs]
+    driver.switch_to.window(childWindow)
+    driver.execute_script("window.scrollTo(0,4000);")
+    postVideos = WebDriverWait(driver, 10).until(EC.presence_of_all_elements_located((By.TAG_NAME,"img")))
+    videos = [post.get_attribute("src") for post in postVideos]
+    print(videos)
+    if videos is None:
+        continue
+    
+        
+    time.sleep(5)
