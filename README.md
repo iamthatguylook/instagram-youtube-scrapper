@@ -35,6 +35,10 @@ The following number for now is hardcoded the way to tackle this would be take t
 
 The more efficient thing would be to have list of urls from where you would scrape from or list of followers then you would open only those tabs and scrape videos from that day. ---> I will make future script for this now ill just hardcode to get the basic functionality running
 
+# second issue
+
+Instagram keeps detecting seleniums behaviour and considers it a bot. This second issue that needs to fixed. Cannot make 100 accounts just to finish project that regardless will get banned. We must find other sources other than instagram we can use youtube channel that would post shorts and take those shorts and compile them that seems more feasible.
+
 # Step 6 - Once all the windows are downloaded we must close the driver
 
 using driver.close()
