@@ -1,3 +1,4 @@
 ./scrapperenv
 config.env
 geckodriver.log
+subscribers.txt
