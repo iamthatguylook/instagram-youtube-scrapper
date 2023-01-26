@@ -7,6 +7,7 @@ from selenium.webdriver import ActionChains
 from dotenv import load_dotenv
 from pathlib import Path
 import os
+import wget
 import time
 
 
@@ -24,13 +25,25 @@ print(subscribers)
 driver = webdriver.Firefox()
 driver.get("https://youtube.com/")
 
+downloadPath = os.getcwd()
+downloadPath = os.path.join(downloadPath, "outputFolder")
+os.mkdir(downloadPath)
+
+print(downloadPath)
 
 for subscriber in subscribers:
+
+    subscriberName = subscriber.replace(" ", "")
+    subscriberVideoDownloadPath = os.path.join(
+        downloadPath, subscriberName.replace("\n", ""))
+    os.mkdir(subscriberVideoDownloadPath)
 
     searchBar = WebDriverWait(driver, 10).until(
         EC.presence_of_element_located((By.XPATH, "//input[@id='search']")))
     searchBar.clear()
     searchBar.send_keys(subscriber)
+
+    time.sleep(2)
 
     searchBarButton = WebDriverWait(driver, 10).until(
         EC.presence_of_element_located((By.XPATH, "//button[@id='search-icon-legacy']")))
@@ -46,5 +59,31 @@ for subscriber in subscribers:
     searchForLastHour = WebDriverWait(driver, 10).until(
         EC.presence_of_element_located((By.XPATH, "//div[@title='Search for Last hour']")))
     searchForLastHour.click()
+
+    videosOnPage = WebDriverWait(driver, 10).until(
+        EC.presence_of_all_elements_located((By.XPATH, "//a[@id='thumbnail']")))
+
+    numberOfDownloads = 5
+    linksOfVideos = []
+    try:
+        for videoNumber in range(numberOfDownloads):
+            linksOfVideos.append(
+                videosOnPage[videoNumber].get_attribute('href'))
+            # ActionChains(driver).click(videosOnPage[videoNumber]).perform()
+        print(linksOfVideos)
+
+        videoCounter = 1
+        for videoLink in linksOfVideos:
+            if videoLink == None:
+                print('There was None here')
+                continue
+            else:
+                saveVideo = os.path.join(
+                    subscriberVideoDownloadPath, subscriberName.replace("/n", "") + '_video_' + str(videoCounter) + '.mp4')
+                wget.download(videoLink, saveVideo)
+                videoCounter += 1
+
+    except:
+        print('yea there is error')
 
     time.sleep(5)
