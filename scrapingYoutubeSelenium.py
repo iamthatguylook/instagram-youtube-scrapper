@@ -34,6 +34,7 @@ print(downloadPath)
 for subscriber in subscribers:
 
     subscriberName = subscriber.replace(" ", "")
+
     subscriberVideoDownloadPath = os.path.join(
         downloadPath, subscriberName.replace("\n", ""))
     os.mkdir(subscriberVideoDownloadPath)
@@ -78,8 +79,10 @@ for subscriber in subscribers:
                 print('There was None here')
                 continue
             else:
+                subscriberName = subscriberName.replace("\n", "")
+                print(subscriberName)
                 saveVideo = os.path.join(
-                    subscriberVideoDownloadPath, subscriberName.replace("/n", "") + '_video_' + str(videoCounter) + '.mp4')
+                    subscriberVideoDownloadPath, subscriberName + '_video_' + str(videoCounter))
                 wget.download(videoLink, saveVideo)
                 videoCounter += 1
 
