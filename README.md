@@ -39,6 +39,10 @@ The more efficient thing would be to have list of urls from where you would scra
 
 Instagram keeps detecting seleniums behaviour and considers it a bot. This second issue that needs to fixed. Cannot make 100 accounts just to finish project that regardless will get banned. We must find other sources other than instagram we can use youtube channel that would post shorts and take those shorts and compile them that seems more feasible.
 
+# Step 6 - Instead of Instagram we download from youtube from the people we will search
+
+Since Instagram blocks all the selenium bots, Next I will see a way to evade all bot detection using proxy or another method. For now I first search on youtube without signing in and scrape videos based on recent uploads on the subject we search. We download with highest resolution possible and store in the outputFolder. We use two new imports one is pytube and the other is shutil(for major os operations)
+
 # Step 6 - Once all the windows are downloaded we must close the driver
 
 using driver.close()
