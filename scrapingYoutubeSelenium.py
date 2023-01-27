@@ -7,9 +7,9 @@ from selenium.webdriver import ActionChains
 from dotenv import load_dotenv
 from pathlib import Path
 import os
-import wget
 import time
 from pytube import YouTube
+import shutil
 
 dotenv_path = Path("./config.env")
 
@@ -25,9 +25,15 @@ print(subscribers)
 driver = webdriver.Firefox()
 driver.get("https://youtube.com/")
 
+
 downloadPath = os.getcwd()
 downloadPath = os.path.join(downloadPath, "outputFolder")
-os.mkdir(downloadPath)
+
+if os.path.exists(downloadPath):
+    shutil.rmtree(downloadPath)
+    os.mkdir(downloadPath)
+else:
+    os.mkdir(downloadPath)
 
 print(downloadPath)
 
