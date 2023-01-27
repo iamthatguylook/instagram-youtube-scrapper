@@ -9,7 +9,7 @@ from pathlib import Path
 import os
 import wget
 import time
-
+from pytube import YouTube
 
 dotenv_path = Path("./config.env")
 
@@ -38,6 +38,7 @@ for subscriber in subscribers:
     subscriberVideoDownloadPath = os.path.join(
         downloadPath, subscriberName.replace("\n", ""))
     os.mkdir(subscriberVideoDownloadPath)
+    print(subscriberName)
 
     searchBar = WebDriverWait(driver, 10).until(
         EC.presence_of_element_located((By.XPATH, "//input[@id='search']")))
@@ -61,12 +62,16 @@ for subscriber in subscribers:
         EC.presence_of_element_located((By.XPATH, "//div[@title='Search for Last hour']")))
     searchForLastHour.click()
 
-    videosOnPage = WebDriverWait(driver, 10).until(
-        EC.presence_of_all_elements_located((By.XPATH, "//a[@id='thumbnail']")))
+    time.sleep(2)
 
-    numberOfDownloads = 5
+    videosOnPage = WebDriverWait(driver, 10).until(
+        EC.presence_of_all_elements_located((By.XPATH, "//a[@id='video-title']")))
+
     linksOfVideos = []
+
     try:
+        numberOfDownloads = 5
+        videoNumber = 0
         for videoNumber in range(numberOfDownloads):
             linksOfVideos.append(
                 videosOnPage[videoNumber].get_attribute('href'))
@@ -79,14 +84,22 @@ for subscriber in subscribers:
                 print('There was None here')
                 continue
             else:
-                subscriberName = subscriberName.replace("\n", "")
-                print(subscriberName)
+                video = YouTube(videoLink)
+                print(video.title)
                 saveVideo = os.path.join(
-                    subscriberVideoDownloadPath, subscriberName + '_video_' + str(videoCounter))
-                wget.download(videoLink, saveVideo)
-                videoCounter += 1
+                    subscriberVideoDownloadPath)
+                video = video.streams.get_highest_resolution()
+
+                video.download(saveVideo)
+                # subscriberName = subscriberName.replace("\n", "")
+                # print(subscriberName)
+                # saveVideo = os.path.join(
+                #     subscriberVideoDownloadPath, subscriberName + '_video_' + str(videoCounter))
+                # wget.download(videoLink, saveVideo)
+                # videoCounter += 1
 
     except:
         print('yea there is error')
 
+    videosOnPage = 0
     time.sleep(5)

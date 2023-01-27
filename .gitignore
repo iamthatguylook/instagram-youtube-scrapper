@@ -2,3 +2,4 @@
 config.env
 geckodriver.log
 subscribers.txt
+outputFolder/
