@@ -43,6 +43,6 @@ Instagram keeps detecting seleniums behaviour and considers it a bot. This secon
 
 Since Instagram blocks all the selenium bots, Next I will see a way to evade all bot detection using proxy or another method. For now I first search on youtube without signing in and scrape videos based on recent uploads on the subject we search. We download with highest resolution possible and store in the outputFolder. We use two new imports one is pytube and the other is shutil(for major os operations)
 
-# Step 6 - Once all the windows are downloaded we must close the driver
+# Step 7 - Once all the windows are downloaded we must close the driver
 
 using driver.close()
