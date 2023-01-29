@@ -3,3 +3,4 @@ config.env
 geckodriver.log
 subscribers.txt
 outputFolder/
+__pycache__/

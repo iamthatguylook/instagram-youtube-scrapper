@@ -20,4 +20,16 @@ def makeCompilation(videoPath, outputFile):
 
     finalClip = concatenate_videoclips(videosInPath, method='compose')
     finalClip.write_videofile(outputFile, threads=8,
-                              remove_temp=True)
+                              remove_temp=True, codec="libx264")
+
+
+def makeCompilationOfEachFolder(mainFolder):
+    downloadPath = os.getcwd()
+    # Adds new path outputFolder to it
+    downloadPath = os.path.join(downloadPath, mainFolder)
+    for folder in os.listdir(downloadPath):
+        print(folder)
+        folderPath = os.path.join(downloadPath, folder)
+        fileNameForOutput = folder + '.mp4'
+        fileLocation = os.path.join(downloadPath, fileNameForOutput)
+        makeCompilation(folderPath, fileLocation)
