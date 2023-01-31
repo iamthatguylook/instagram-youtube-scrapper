@@ -4,3 +4,4 @@ geckodriver.log
 subscribers.txt
 outputFolder/
 __pycache__/
+clientSecret.json
