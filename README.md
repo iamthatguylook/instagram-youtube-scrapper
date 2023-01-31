@@ -45,4 +45,6 @@ Since Instagram blocks all the selenium bots, Next I will see a way to evade all
 
 # Step - 7 Take all new videos that are compiled use youtube api and post video
 
-Iterate thorugh the output folder and take the main videos and use a scheduler to host the videos online this task will done by youtube API. We use main.py to run all the scripts effectively. +
+Iterate thorugh the output folder and take the main videos and use a scheduler to host the videos online this task will done by youtube API. We use main.py to run all the scripts effectively.
+
+Note - Youtube API does not allow to upload video though youtube api anymore
